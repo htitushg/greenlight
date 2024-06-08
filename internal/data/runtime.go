@@ -7,15 +7,15 @@ import (
 	"strings"
 )
 
-// Define an error that our UnmarshalJSON() method can return if we're unable to parse
+// ErrInvalidRuntimeFormat Define an error that our UnmarshalJSON() method can return if we're unable to parse
 // or convert the JSON string successfully.
 var ErrInvalidRuntimeFormat = errors.New("invalid runtime format")
 
-// Declare a custom Runtime type, which has the underlying type int32 (the same as our
+// Runtime Declare a custom Runtime type, which has the underlying type int32 (the same as our
 // Movie struct field).
 type Runtime int32
 
-// Implement a MarshalJSON() method on the Runtime type so that it satisfies the
+// MarshalJSON Implement a MarshalJSON() method on the Runtime type so that it satisfies the
 // json.Marshaler interface. This should return the JSON-encoded value for the movie
 // runtime (in our case, it will return a string in the format "<runtime> mins").
 func (r Runtime) MarshalJSON() ([]byte, error) {
@@ -28,7 +28,7 @@ func (r Runtime) MarshalJSON() ([]byte, error) {
 	return []byte(quotedJSONValue), nil
 }
 
-// Implement a UnmarshalJSON() method on the Runtime type so that it satisfies the
+// UnmarshalJSON Implement a UnmarshalJSON() method on the Runtime type so that it satisfies the
 // json.Unmarshaler interface. IMPORTANT: Because UnmarshalJSON() needs to modify the
 // receiver (our Runtime type), we must use a pointer receiver for this to work
 // correctly. Otherwise, we will only be modifying a copy (which is then discarded when

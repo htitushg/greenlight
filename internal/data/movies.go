@@ -6,9 +6,10 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/lib/pq"
 	"greenlight/internal/validator"
 	"time"
+
+	"github.com/lib/pq"
 )
 
 type Movie struct {
@@ -25,7 +26,7 @@ type Movie struct {
 	Version int32    `json:"version"`
 }
 
-// Define a MovieModel struct type which wraps a sql.DB connection pool.
+// MovieModel Define a MovieModel struct type which wraps a sql.DB connection pool.
 type MovieModel struct {
 	DB *sql.DB
 }
@@ -76,7 +77,7 @@ func (m Movie) MarshalJSON() ([]byte, error) {
 	return json.Marshal(aux)
 }
 
-// Add a placeholder method for inserting a new record in the movies table.
+// Insert Add a placeholder method for inserting a new record in the movies table.
 // The Insert() method accepts a pointer to a movie struct, which should contain the
 // data for the new record.
 func (m MovieModel) Insert(movie *Movie) error {
@@ -199,7 +200,7 @@ func (m MovieModel) Delete(id int64) error {
 	return nil
 }
 
-// Create a new GetAll() method which returns a slice of movies. Although we're not
+// GetAll Create a new GetAll() method which returns a slice of movies. Although we're not
 // using them right now, we've set this up to accept the various filter parameters as
 // arguments.
 // func (m MovieModel) GetAll(title string, genres []string, filters Filters) ([]*Movie, error) {

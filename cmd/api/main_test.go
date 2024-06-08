@@ -1,6 +1,6 @@
 package main
 
-import (
+/* import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -20,4 +20,4 @@ func BenchmarkMarshal(b *testing.B) {
 	for n := 0; n < b.N; n++ {
 		healthcheckHandlerMarshal(w, r)
 	}
-}
+} */

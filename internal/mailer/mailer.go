@@ -17,9 +17,10 @@ import (
 // ↓↓↓
 
 //go:embed "templates"
+
 var templateFS embed.FS
 
-// Define a Mailer struct which contains a mail.Dialer instance (used to connect to a
+// Mailer struct contains a mail.Dialer instance (used to connect to a
 // SMTP server) and the sender information for your emails (the name and address you
 // want the email to be from, such as "Alice Smith <alice@example.com>").
 type Mailer struct {
@@ -40,7 +41,7 @@ func New(host string, port int, username, password, sender string) Mailer {
 	}
 }
 
-// Define a Send() method on the Mailer type. This takes the recipient email address
+// Send method on the Mailer type. This takes the recipient email address
 // as the first parameter, the name of the file containing the templates, and any
 // dynamic data for the templates as an any parameter.
 func (m Mailer) Send(recipient, templateFile string, data any) error {

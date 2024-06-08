@@ -16,15 +16,15 @@ var (
 	ErrDuplicateEmail = errors.New("duplicate email")
 )
 
-// Declare a new AnonymousUser variable.
+// AnonymousUser variable.
 var AnonymousUser = &User{}
 
-// Create a UserModel struct which wraps the connection pool.
+// UserModel struct which wraps the connection pool.
 type UserModel struct {
 	DB *sql.DB
 }
 
-// Define a User struct to represent an individual user. Importantly, notice how we are
+// User struct to represent an individual user. Importantly, notice how we are
 // using the json:"-" struct tag to prevent the Password and Version fields appearing in
 // any output when we encode it to JSON. Also notice that the Password field uses the
 // custom password type defined below.
@@ -38,7 +38,7 @@ type User struct {
 	Version   int       `json:"-"`
 }
 
-// Create a custom password type which is a struct containing the plaintext and hashed
+// password Create a custom password type which is a struct containing the plaintext and hashed
 // versions of the password for a user. The plaintext field is a *pointer* to a string,
 // so that we're able to distinguish between a plaintext password not being present in
 // the struct at all, versus a plaintext password which is the empty string "".
@@ -47,12 +47,12 @@ type password struct {
 	hash      []byte
 }
 
-// Check if a User instance is the AnonymousUser.
+// IsAnonymous Check if a User instance is the AnonymousUser.
 func (u *User) IsAnonymous() bool {
 	return u == AnonymousUser
 }
 
-// The Set() method calculates the bcrypt hash of a plaintext password, and stores both
+// Set() method calculates the bcrypt hash of a plaintext password, and stores both
 // the hash and the plaintext versions in the struct.
 func (p *password) Set(plaintextPassword string) error {
 	hash, err := bcrypt.GenerateFromPassword([]byte(plaintextPassword), 12)
@@ -150,7 +150,7 @@ func (m UserModel) Insert(user *User) error {
 	return nil
 }
 
-// Retrieve the User details from the database based on the user's email address.
+// GetByEmail Retrieve the User details from the database based on the user's email address.
 // Because we have a UNIQUE constraint on the email column, this SQL query will only
 // return one record (or none at all, in which case we return a ErrRecordNotFound error).
 func (m UserModel) GetByEmail(email string) (*User, error) {

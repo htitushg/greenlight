@@ -8,11 +8,11 @@ import (
 	"github.com/lib/pq"
 )
 
-// Define a Permissions slice, which we will use to hold the permission codes (like
+// Permissions Define a Permissions slice, which we will use to hold the permission codes (like
 // "movies:read" and "movies:write") for a single user.
 type Permissions []string
 
-// Add a helper method to check whether the Permissions slice contains a specific
+// Include Add a helper method to check whether the Permissions slice contains a specific
 // permission code.
 func (p Permissions) Include(code string) bool {
 	for i := range p {
@@ -23,12 +23,12 @@ func (p Permissions) Include(code string) bool {
 	return false
 }
 
-// Define the PermissionModel type.
+// PermissionModel Define the PermissionModel type.
 type PermissionModel struct {
 	DB *sql.DB
 }
 
-// The GetAllForUser() method returns all permission codes for a specific user in a
+// GetAllForUser The GetAllForUser() method returns all permission codes for a specific user in a
 // Permissions slice. The code in this method should feel very familiar --- it uses the
 // standard pattern that we've already seen before for retrieving multiple data rows in
 // an SQL query.
@@ -68,7 +68,7 @@ func (m PermissionModel) GetAllForUser(userID int64) (Permissions, error) {
 	return permissions, nil
 }
 
-// Add the provided permission codes for a specific user. Notice that we're using a
+// AddForUser Add the provided permission codes for a specific user. Notice that we're using a
 // variadic parameter for the codes so that we can assign multiple permissions in a
 // single call.
 func (m PermissionModel) AddForUser(userID int64, codes ...string) error {

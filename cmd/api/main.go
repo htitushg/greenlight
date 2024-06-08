@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"greenlight/internal/data"
 	"greenlight/internal/mailer"
+	"greenlight/internal/vcs"
 	"log/slog"
 	"os"
 	"runtime"
@@ -21,7 +22,11 @@ import (
 	_ "github.com/lib/pq"
 )
 
-const version = "1.0.0"
+// version const version = "1.0.0" //old definition
+// version variable (rather than a constant) and set its value to vcs.Version().
+var (
+	version = vcs.Version()
+)
 
 // Add a db struct field to hold the configuration settings for our database connection
 // pool. For now this only holds the DSN, which we will read in from a command-line flag.

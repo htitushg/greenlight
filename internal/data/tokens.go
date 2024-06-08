@@ -17,7 +17,7 @@ const (
 	ScopeAuthentication = "authentication" // Include a new authentication scope.
 )
 
-// Define a Token struct to hold the data for an individual token. This includes the
+// Token Define a Token struct to hold the data for an individual token. This includes the
 // plaintext and hashed versions of the token, associated user ID, expiry time and
 // scope.
 // Add struct tags to control how the struct appears when encoded to JSON.
@@ -71,18 +71,18 @@ func generateToken(userID int64, ttl time.Duration, scope string) (*Token, error
 	return token, nil
 }
 
-// Check that the plaintext token has been provided and is exactly 26 bytes long.
+// ValidateTokenPlaintext Check that the plaintext token has been provided and is exactly 26 bytes long.
 func ValidateTokenPlaintext(v *validator.Validator, tokenPlaintext string) {
 	v.Check(tokenPlaintext != "", "token", "must be provided")
 	v.Check(len(tokenPlaintext) == 26, "token", "must be 26 bytes long")
 }
 
-// Define the TokenModel type.
+// TokenModel Define the TokenModel type.
 type TokenModel struct {
 	DB *sql.DB
 }
 
-// The New() method is a shortcut which creates a new Token struct and then inserts the
+// New method is a shortcut which creates a new Token struct and then inserts the
 // data in the tokens table.
 func (m TokenModel) New(userID int64, ttl time.Duration, scope string) (*Token, error) {
 	token, err := generateToken(userID, ttl, scope)
@@ -94,7 +94,7 @@ func (m TokenModel) New(userID int64, ttl time.Duration, scope string) (*Token, 
 	return token, err
 }
 
-// Insert() adds the data for a specific token to the tokens table.
+// Insert method adds the data for a specific token to the tokens table.
 func (m TokenModel) Insert(token *Token) error {
 	query := `
         INSERT INTO tokens (hash, user_id, expiry, scope) 
@@ -109,7 +109,7 @@ func (m TokenModel) Insert(token *Token) error {
 	return err
 }
 
-// DeleteAllForUser() deletes all tokens for a specific user and scope.
+// DeleteAllForUser method deletes all tokens for a specific user and scope.
 func (m TokenModel) DeleteAllForUser(scope string, userID int64) error {
 	query := `
         DELETE FROM tokens 
