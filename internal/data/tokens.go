@@ -15,6 +15,7 @@ import (
 const (
 	ScopeActivation     = "activation"
 	ScopeAuthentication = "authentication" // Include a new authentication scope.
+	ScopePasswordReset  = "password-reset"
 )
 
 // Token Define a Token struct to hold the data for an individual token. This includes the
